@@ -1,7 +1,7 @@
 # ISSU — Phase 1: Foundation
 
 **Phase:** 1 — Foundation
-**Status:** APPROVED (plan approved 2026-08-08; implementation M1–M6 complete, M7 examples/docs)
+**Status:** FROZEN (Phase 1 accepted 2026-08-09; remote CI PASS on commit 657f3d9)
 **Blueprint:** `../BLUEPRINT.md` (v0.1)
 **License:** Apache License 2.0
 

@@ -455,8 +455,13 @@ repository state (not the implementation report alone):
   returns `undefined` (Phase 1 declares no required secrets). Docs now state
   that; the code stays in the registry for future phases. No code or contract
   change.
-- **M8-4 — PENDING:** role review (lead/architect) + phase acceptance sign-off
-  required before README status → FROZEN.
+- **M8-4 — PASS (Phase 1 accepted 2026-08-09):** role/architect review PASS
+  (zero blocking findings; N1 non-blocking documentation polish, N2 already
+  resolved); remote CI PASS (workflow `ci`, run #1, id `31307080663`, commit
+  `657f3d9`, conclusion `success` — install → typecheck → lint → format:check →
+  test:coverage → build → audit); all Phase 1 acceptance conditions
+  (SPECIFICATION §10 DoD 1–10) satisfied; README status → FROZEN. Phase 1 is
+  complete and frozen; no source or §2 API changes accompany this transition.
 
 ---
 
