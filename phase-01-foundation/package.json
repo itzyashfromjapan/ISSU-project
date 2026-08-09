@@ -1,0 +1,42 @@
+{
+  "name": "@issue/foundation",
+  "version": "0.1.0",
+  "description": "ISSU Phase 1 — Foundation: engineering substrate for the ISSU autonomous intelligence platform.",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22.9.0"
+  },
+  "bin": {
+    "issue": "./dist/cli/main.js"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true});require('node:fs').rmSync('coverage',{recursive:true,force:true})\"",
+    "dev": "tsx watch src/cli/main.ts",
+    "demo": "tsx examples/quickstart.ts && tsx examples/logging-demo.ts"
+  },
+  "dependencies": {
+    "pino": "10.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint": "9.39.5",
+    "prettier": "3.9.6",
+    "tsx": "4.23.11",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.66.0",
+    "vitest": "4.1.10"
+  }
+}

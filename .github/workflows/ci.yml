@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: phase-01-foundation/.node-version
+          cache: npm
+          cache-dependency-path: phase-01-foundation/package-lock.json
+      - name: Install dependencies
+        working-directory: phase-01-foundation
+        run: npm ci
+      - name: Typecheck
+        working-directory: phase-01-foundation
+        run: npm run typecheck
+      - name: Lint
+        working-directory: phase-01-foundation
+        run: npm run lint
+      - name: Format check
+        working-directory: phase-01-foundation
+        run: npm run format:check
+      - name: Test with coverage gate
+        working-directory: phase-01-foundation
+        run: npm run test:coverage
+      - name: Build
+        working-directory: phase-01-foundation
+        run: npm run build
+      - name: Audit dependencies
+        working-directory: phase-01-foundation
+        run: npm audit --audit-level=high
