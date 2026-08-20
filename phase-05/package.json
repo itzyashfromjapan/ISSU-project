@@ -1,7 +1,7 @@
 {
-  "name": "@issue/foundation",
+  "name": "@issue/analytics",
   "version": "0.1.0",
-  "description": "ISSU Phase 1 — Foundation: engineering substrate for the ISSU autonomous intelligence platform.",
+  "description": "ISSU Phase 5 — Data and Analytics Agents: deterministic analytics-agent core translating the COMPLETE Phase 5 SPECIFICATION into a governed data-acquisition-to-report pipeline over the frozen Phase 1/2/3 public barrels.",
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
@@ -17,9 +17,6 @@
   "engines": {
     "node": ">=22.9.0"
   },
-  "bin": {
-    "issue": "./dist/cli/main.js"
-  },
   "scripts": {
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
     "typecheck": "tsc --noEmit",
@@ -30,13 +27,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true});require('node:fs').rmSync('coverage',{recursive:true,force:true})\"",
-    "dev": "tsx watch src/cli/main.ts",
-    "demo": "tsx examples/quickstart.ts && tsx examples/logging-demo.ts"
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "pino": "10.3.1"
+    "@issue/foundation": "file:../phase-01-foundation",
+    "@issue/integration": "file:../phase-03",
+    "@issue/tool-runtime": "file:../phase-02"
   },
   "devDependencies": {
     "@types/node": "24.13.3",
