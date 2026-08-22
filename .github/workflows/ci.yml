@@ -36,3 +36,58 @@ jobs:
       - name: Audit dependencies
         working-directory: phase-01-foundation
         run: npm audit --audit-level=high
+
+  phases:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Phase 02-17 in dependency order; each consumes frozen upstream
+        # barrels via file: refs, so npm ci resolves the whole chain.
+        phase:
+          - phase-02
+          - phase-03
+          - phase-04
+          - phase-05
+          - phase-06
+          - phase-07
+          - phase-08
+          - phase-09
+          - phase-10
+          - phase-11
+          - phase-12
+          - phase-13
+          - phase-14
+          - phase-15
+          - phase-16
+          - phase-17
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ matrix.phase }}/.node-version
+          cache: npm
+          cache-dependency-path: |
+            ${{ matrix.phase }}/package-lock.json
+            phase-01-foundation/package-lock.json
+      - name: Install (upstream chain, ordered)
+        run: |
+          for p in phase-01-foundation phase-02 phase-03 phase-05 phase-06 phase-07 phase-08 phase-09 phase-10 phase-11; do
+            if [ "$p" = "${{ matrix.phase }}" ]; then break; fi
+            if [ -d "$p" ]; then
+              (cd "$p" && npm ci --ignore-scripts || npm install --ignore-scripts)
+              (cd "$p" && npm run build)
+            fi
+          done
+      - name: Install dependencies
+        working-directory: ${{ matrix.phase }}
+        run: npm ci --ignore-scripts || npm install --ignore-scripts
+      - name: Check (typecheck + lint + format + tests)
+        working-directory: ${{ matrix.phase }}
+        run: npm run check
+      - name: Test with coverage gate
+        working-directory: ${{ matrix.phase }}
+        run: npm run test:coverage
+      - name: Build
+        working-directory: ${{ matrix.phase }}
+        run: npm run build
