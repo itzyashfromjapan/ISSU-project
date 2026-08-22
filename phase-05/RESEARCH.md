@@ -2,7 +2,7 @@
 
 **Phase:** 5 — Data and Analytics Agents
 **Stage:** RESEARCH (owner-authorized; accepted DEFINE → Research)
-**Status:** DRAFT — awaiting Research-stage acceptance
+**Status:** ACCEPTED — Owner accepted the Phase 5 Research record (owner, 2026-08-21)
 **Blueprint:** `../BLUEPRINT.md` (v0.1)
 **Accepted DEFINE:** `./DEFINE.md` (ACCEPTED, owner, 2026-08-20)
 **License:** Apache License 2.0
@@ -558,8 +558,8 @@ and decide within its own authority; none is decided here.
 ## End-of-Document Block
 
 ```
-PHASE 5 RESEARCH RECORD: CREATED (draft)
-PHASE 5 RESEARCH STAGE: PENDING OWNER ACCEPTANCE
+PHASE 5 RESEARCH RECORD: ACCEPTED (owner, 2026-08-21)
+PHASE 5 RESEARCH STAGE: ACCEPTED (owner, 2026-08-21)
 HISTORICAL RESEARCH RECOVERED: NO (NOT RECOVERABLE; not reconstructed)
 ARCHITECTURE AUTHORIZED: NO
 SPECIFICATION AUTHORIZED: NO
