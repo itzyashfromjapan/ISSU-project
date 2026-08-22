@@ -140,3 +140,11 @@ PHASE 9 WORK STARTED: NO
 COMMIT: HEAD (32 files)
 PUSH: HEAD → origin/main SUCCESS
 ```
+
+---
+
+## 16. POST-FREEZE CORRECTIVE REWORK (Owner-authorized 2026-08-22, items D1/D2)
+
+- **D2 coverage correction:** actual measured coverage is now 95.60% stmts / 89.47% branches / 100% funcs / 97.67% lines (thresholds now 80/80/80/80); added deterministic vi.mock(httpFetch) network-path suite (providers.network.test.ts, 35 tests total).
+- All gates re-run after rework: typecheck PASS, lint PASS, format:check PASS, tests PASS, coverage gate PASS, build PASS.
+- This appendix supersedes any earlier numeric/conformance claims in sections 3-6 above where they conflict.

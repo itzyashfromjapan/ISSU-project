@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { runBusinessTask } from "../src/internal/machine.js";
+import { runEducationTask } from "../src/internal/machine.js";
 import { createStubProvider } from "../src/internal/provider.js";
 
-describe("runBusinessTask lifecycle (Spec §8)", () => {
+describe("runEducationTask lifecycle (Spec §8)", () => {
   it("FAILED when objective empty", async () => {
-    const res = await runBusinessTask({
+    const res = await runEducationTask({
       objective: "",
       workflow: [{ op: "validate", target: "t" }],
       inputs: [{ id: "1", kind: "inline", content: "x" }],
@@ -12,7 +12,7 @@ describe("runBusinessTask lifecycle (Spec §8)", () => {
     expect(res.state).toBe("FAILED");
   });
   it("FAILED when workflow empty", async () => {
-    const res = await runBusinessTask({
+    const res = await runEducationTask({
       objective: "test",
       workflow: [],
       inputs: [{ id: "1", kind: "inline", content: "x" }],
@@ -22,7 +22,7 @@ describe("runBusinessTask lifecycle (Spec §8)", () => {
   it("CANCELLED when signal aborted", async () => {
     const controller = new AbortController();
     controller.abort();
-    const res = await runBusinessTask(
+    const res = await runEducationTask(
       {
         objective: "test",
         workflow: [{ op: "validate", target: "t" }],
@@ -33,7 +33,7 @@ describe("runBusinessTask lifecycle (Spec §8)", () => {
     expect(res.state).toBe("CANCELLED");
   });
   it("ABSTAINED when no valid inputs", async () => {
-    const res = await runBusinessTask({
+    const res = await runEducationTask({
       objective: "test",
       workflow: [{ op: "validate", target: "t" }],
       inputs: [],
@@ -41,7 +41,7 @@ describe("runBusinessTask lifecycle (Spec §8)", () => {
     expect(res.state).toBe("ABSTAINED");
   });
   it("COMPLETED when all approved", async () => {
-    const res = await runBusinessTask(
+    const res = await runEducationTask(
       {
         objective: "test",
         workflow: [{ op: "validate", target: "t" }],
@@ -54,7 +54,7 @@ describe("runBusinessTask lifecycle (Spec §8)", () => {
     expect(res.report).toBeDefined();
   });
   it("PARTIAL when not all approved", async () => {
-    const res = await runBusinessTask(
+    const res = await runEducationTask(
       {
         objective: "test",
         workflow: [{ op: "approve", target: "t" }],

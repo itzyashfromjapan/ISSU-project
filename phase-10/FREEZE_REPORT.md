@@ -140,3 +140,11 @@ PHASE 11 WORK STARTED: NO
 COMMIT: HEAD (33 files)
 PUSH: HEAD → origin/main SUCCESS
 ```
+
+---
+
+## 16. POST-FREEZE CORRECTIVE REWORK (Owner-authorized 2026-08-22, audit items D1/D2)
+
+- **D2 coverage correction:** actual measured coverage is now 100% stmts / 90.9% branches / 100% funcs / 100% lines (thresholds now 80/80/80/80); added coverage.test.ts (localFile inputs, unknown-kind drop, default stubProvider, missing-approver FAILED gate); 13 tests total.
+- All gates re-run after rework: typecheck PASS, lint PASS, format:check PASS, tests PASS, coverage gate PASS, build PASS.
+- This appendix supersedes earlier numeric/conformance claims in sections 3-6 above where they conflict.

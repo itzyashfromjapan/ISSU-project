@@ -1,11 +1,11 @@
 /**
- * ISSU Phase 10 — Business Automation Agents: public data model.
+ * ISSU Phase 11 — Education Automation Agents: public data model.
  * Spec §6, §7, Architecture Q10.1.
  */
 
 import type { ProvenanceChain, UncertaintyInfo } from "@issue/analytics";
 
-export type BusinessTaskStatus =
+export type EducationTaskStatus =
   | "READY"
   | "VALIDATING"
   | "TRANSFORMING"
@@ -18,42 +18,42 @@ export type BusinessTaskStatus =
   | "FAILED"
   | "CANCELLED";
 
-export type BusinessWorkflowStep = {
+export type EducationWorkflowStep = {
   readonly op: "validate" | "transform" | "approve" | "notify" | "archive";
   readonly target: string;
   readonly params?: Readonly<Record<string, unknown>>;
 };
 
-export type BusinessInputKind = "inline" | "localFile";
+export type EducationInputKind = "inline" | "localFile";
 
-export type BusinessInput = {
+export type EducationInput = {
   readonly id: string;
-  readonly kind: BusinessInputKind;
+  readonly kind: EducationInputKind;
   readonly path?: string;
   readonly content?: string;
 };
 
-export type BusinessApproval = {
+export type EducationApproval = {
   readonly approved: boolean;
   readonly approver: string;
   readonly reason?: string;
 };
 
-export type BusinessFinding = {
+export type EducationFinding = {
   readonly id: string;
   readonly text: string;
   readonly provenance: ProvenanceChain;
   readonly uncertainty: UncertaintyInfo;
-  readonly approval: BusinessApproval;
+  readonly approval: EducationApproval;
 };
 
-export type BusinessReport = {
+export type EducationReport = {
   readonly id: string;
   readonly text: string;
   readonly findingIds: readonly string[];
 };
 
-export type BusinessEvaluationRecord = {
+export type EducationEvaluationRecord = {
   readonly dimensions: Record<
     | "correctness"
     | "completeness"
@@ -65,27 +65,27 @@ export type BusinessEvaluationRecord = {
   readonly method: "automated" | "human" | "hybrid";
 };
 
-export type BusinessTaskRequest = {
+export type EducationTaskRequest = {
   readonly objective: string;
-  readonly workflow: readonly BusinessWorkflowStep[];
-  readonly inputs: readonly BusinessInput[];
+  readonly workflow: readonly EducationWorkflowStep[];
+  readonly inputs: readonly EducationInput[];
 };
 
-export type BusinessTaskResult = {
-  readonly state: BusinessTaskStatus;
-  readonly report?: BusinessReport;
-  readonly findings: readonly BusinessFinding[];
+export type EducationTaskResult = {
+  readonly state: EducationTaskStatus;
+  readonly report?: EducationReport;
+  readonly findings: readonly EducationFinding[];
   readonly provenance: readonly ProvenanceChain[];
-  readonly evaluation: BusinessEvaluationRecord;
+  readonly evaluation: EducationEvaluationRecord;
 };
 
-export type BusinessDecisionProvider = {
+export type EducationDecisionProvider = {
   decideApproval(
-    businessObject: BusinessInput,
-    state: { status: BusinessTaskStatus },
-  ): Promise<BusinessApproval>;
+    businessObject: EducationInput,
+    state: { status: EducationTaskStatus },
+  ): Promise<EducationApproval>;
 };
 
-export type BusinessTaskState = {
-  readonly status: BusinessTaskStatus;
+export type EducationTaskState = {
+  readonly status: EducationTaskStatus;
 };
