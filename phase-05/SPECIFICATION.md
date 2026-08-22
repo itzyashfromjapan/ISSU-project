@@ -2,7 +2,7 @@
 
 **Phase:** 5 - Analytics Agent Module
 **Stage:** SPECIFICATION (owner-authorized 2026-08-20)
-**Status:** Draft - awaiting Specification-stage acceptance
+**Status:** ACCEPTED / FROZEN - README records Phase 5 FROZEN / RELEASE-READY (Owner, 2026-08-20). This stage header historically read 'Draft - awaiting Specification-stage acceptance'; reconciled 2026-08-22 under Owner authorization D4 using that durable acceptance record plus same-session re-verification.
 **Blueprint:** `../BLUEPRINT.md` (v0.1)
 **Authoritative inputs:** Accepted Phase 5 DEFINE (`./DEFINE.md`, ACCEPTED
 2026-08-20); accepted Phase 5 Research (`./RESEARCH.md`, R5.1-R5.12, ACCEPTED

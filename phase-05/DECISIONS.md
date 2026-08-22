@@ -2,7 +2,7 @@
 
 **Phase:** 5 - Analytics Agent Module
 **Stage:** ARCHITECTURE (owner-authorized 2026-08-20)
-**Status:** Draft - records the architectural decisions made in
+**Status:** FROZEN - decisions frozen at the Phase 5 phase freeze recorded in README (Owner, 2026-08-20). This header historically read 'Draft - records the architectural decisions made in
 `./ARCHITECTURE.md`; decisions become **Approved** at Architecture acceptance and
 **Frozen** at the Phase 5 phase freeze
 **Blueprint:** `../BLUEPRINT.md` (v0.1)
