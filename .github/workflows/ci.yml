@@ -91,3 +91,43 @@ jobs:
       - name: Build
         working-directory: ${{ matrix.phase }}
         run: npm run build
+
+  platform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: platform/.node-version
+          cache: npm
+          cache-dependency-path: |
+            platform/package-lock.json
+            phase-01-foundation/package-lock.json
+      - name: Install frozen upstream chain (ordered)
+        run: |
+          for p in phase-01-foundation phase-02 phase-03 phase-05 phase-06 phase-07 phase-08 phase-09; do
+            (cd "$p" && npm ci --ignore-scripts || npm install --ignore-scripts)
+            (cd "$p" && npm run build)
+          done
+      - name: Install dependencies
+        working-directory: platform
+        run: npm ci --ignore-scripts || npm install --ignore-scripts
+      - name: Check (typecheck + lint + format + tests)
+        working-directory: platform
+        run: npm run check
+      - name: Test with coverage gate
+        working-directory: platform
+        run: npm run test:coverage
+      - name: Build
+        working-directory: platform
+        run: npm run build
+
+  release-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: platform/.node-version
+      - name: Production release gates (secret scan, thresholds, boundaries)
+        run: node scripts/verify-production.mjs
