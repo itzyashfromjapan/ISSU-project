@@ -1,7 +1,8 @@
 # ISSU — Phase 6: Configuration & CLI
 
 **Phase:** 6 — Configuration & CLI
-**Status:** IMPLEMENTATION COMPLETE — `npm run check` PASS (typecheck, lint, format:check, 66/66 tests), `test:coverage` 88.46%/82.94%/89.47%/90.26% (≥80%), `build` PASS; docs `DEFINE (ACCEPTED 2026-08-22)`, `RESEARCH (ACCEPTED)`, `ARCHITECTURE (ACCEPTED)`, `SPECIFICATION (ACCEPTED)`; implementation `src/` via `phase-06/src/index.ts` (6 types + 3 functions), tests `66/66`; Freeze pending Owner acceptance
+**Status:** FROZEN — Phase 6 completed and accepted by the Owner (2026-08-22). DEFINE / RESEARCH / ARCHITECTURE / DECISIONS / SPECIFICATION / IMPLEMENTATION / TEST / BUILD / SECURITY AUDIT / GOVERNANCE AUDIT / INTEGRITY AUDIT / FREEZE-READINESS **COMPLETE**; all verification gates **PASS** (typecheck, lint, format:check, 66/66 tests, coverage 88.46%/82.94%/89.47%/90.26% ≥80%, build, `npm run check`); `dist/` built and validated; publishing explicitly excluded. **Phase 6 is FROZEN.**
+**Frozen commit:** `b72a78b` → `HEAD` (this freeze)
 **Blueprint:** `../BLUEPRINT.md` (v0.1)
 **License:** Apache License 2.0
 
