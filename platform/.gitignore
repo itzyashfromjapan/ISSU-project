@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Test coverage
+coverage/
+
+# Environment files — real secrets must never be committed.
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
