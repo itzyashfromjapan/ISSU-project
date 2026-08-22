@@ -53,7 +53,7 @@ if (secretHits.length > 0) {
 
 // ---- Gate 2: coverage thresholds ----------------------------------------
 const vitestConfigs = trackedFiles().filter(
-  (f) => /^phase-[^/]+\/vitest\.config\.ts$/.test(f) || f === "platform/vitest.config.ts",
+  (f) => /^phase-[^/]+\/vitest\.config\.ts$/.test(f) || f === "platform/vitest.config.ts" || f === "trial-ui/vitest.config.ts",
 );
 if (vitestConfigs.length === 0) fail("no vitest configs found");
 for (const f of vitestConfigs) {
@@ -73,7 +73,7 @@ if (failures === 0) pass(`thresholds >= 80 in ${vitestConfigs.length} workspace 
 // Flags REAL module-graph edges only. String literals used by Phase 09's
 // deep-import rejection probe (node -e "import('@issue/x/dist/…')") are
 // intentionally permitted — they verify the block, they are not imports.
-const srcFiles = trackedFiles().filter((f) => /^phase-[^/]+\/src\/.*\.ts$/.test(f) || /^platform\/src\/.*\.ts$/.test(f));
+const srcFiles = trackedFiles().filter((f) => /^phase-[^/]+\/src\/.*\.ts$/.test(f) || /^platform\/src\/.*\.ts$/.test(f) || /^trial-ui\/src\/.*\.ts$/.test(f));
 const DEEP_IMPORT_RE = /(?:^|\n)\s*(?:import|export)[^;\n]*from\s*["']@issue\/[a-z0-9-]+\/(?:dist|internal)/;
 const REQUIRE_DEEP_RE = /require\(\s*["']@issue\/[a-z0-9-]+\/(?:dist|internal)/;
 const REQUIRE_ANY_RE = /\brequire\(\s*["']/;

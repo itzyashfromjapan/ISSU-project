@@ -1,0 +1,59 @@
+{
+  "name": "@issue/trial-ui",
+  "version": "0.2.0",
+  "description": "ISSU v0.2 — internal controlled-trial UI: localhost-only workbench for experiencing ISSU domain workflows in stub or live provider mode.",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "issue-trial": "./dist/server.js"
+  },
+  "engines": {
+    "node": ">=22.9.0"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "start": "npm run build && node dist/server.js",
+    "selftest": "npm run build && node dist/server.js --selftest"
+  },
+  "dependencies": {
+    "@issue/analytics": "file:../phase-05",
+    "@issue/business": "file:../phase-10",
+    "@issue/config-cli": "file:../phase-06",
+    "@issue/education": "file:../phase-11",
+    "@issue/foundation": "file:../phase-01-foundation",
+    "@issue/integration": "file:../phase-03",
+    "@issue/model-provider": "file:../phase-08",
+    "@issue/platform": "file:../platform",
+    "@issue/scientific": "file:../phase-12",
+    "@issue/tool-runtime": "file:../phase-02",
+    "@issue/workspace": "file:../phase-09",
+    "@issue/write-execution": "file:../phase-07",
+    "@issue/robotics": "file:../phase-13",
+    "@issue/engineering": "file:../phase-14",
+    "@issue/creative": "file:../phase-15",
+    "@issue/productivity": "file:../phase-16",
+    "@issue/industry": "file:../phase-17"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint": "9.39.5",
+    "prettier": "3.9.6",
+    "tsx": "4.23.11",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.66.0",
+    "vitest": "4.1.10"
+  }
+}

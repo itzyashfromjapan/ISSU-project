@@ -122,6 +122,40 @@ jobs:
         working-directory: platform
         run: npm run build
 
+  trial-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: trial-ui/.node-version
+          cache: npm
+          cache-dependency-path: |
+            trial-ui/package-lock.json
+            phase-01-foundation/package-lock.json
+      - name: Install frozen upstream chain (ordered)
+        run: |
+          for p in phase-01-foundation phase-02 phase-03 phase-05 phase-06 phase-07 phase-08 phase-09 phase-10 phase-11 phase-12 phase-13 phase-14 phase-15 phase-16 phase-17; do
+            (cd "$p" && npm ci --ignore-scripts || npm install --ignore-scripts)
+            (cd "$p" && npm run build)
+          done
+      - name: Install dependencies (platform + trial-ui)
+        run: |
+          (cd platform && npm ci --ignore-scripts || npm install --ignore-scripts)
+          (cd trial-ui && npm ci --ignore-scripts || npm install --ignore-scripts)
+      - name: Check (typecheck + lint + format + tests)
+        working-directory: trial-ui
+        run: npm run check
+      - name: Test with coverage gate
+        working-directory: trial-ui
+        run: npm run test:coverage
+      - name: Build
+        working-directory: trial-ui
+        run: npm run build
+      - name: Local run verification (selftest, localhost only)
+        working-directory: trial-ui
+        run: node dist/server.js --selftest
+
   release-gates:
     runs-on: ubuntu-latest
     steps:
