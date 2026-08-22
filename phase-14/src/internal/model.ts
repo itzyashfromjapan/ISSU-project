@@ -1,11 +1,11 @@
 /**
- * ISSU Phase 10 — Business Automation Agents: public data model.
+ * ISSU Phase 14 — Engineering Automation Agents: public data model.
  * Spec §6, §7, Architecture Q10.1.
  */
 
 import type { ProvenanceChain, UncertaintyInfo } from "@issue/analytics";
 
-export type BusinessTaskStatus =
+export type EngineeringTaskStatus =
   | "READY"
   | "VALIDATING"
   | "TRANSFORMING"
@@ -18,42 +18,42 @@ export type BusinessTaskStatus =
   | "FAILED"
   | "CANCELLED";
 
-export type BusinessWorkflowStep = {
+export type EngineeringWorkflowStep = {
   readonly op: "validate" | "transform" | "approve" | "notify" | "archive";
   readonly target: string;
   readonly params?: Readonly<Record<string, unknown>>;
 };
 
-export type BusinessInputKind = "inline" | "localFile";
+export type EngineeringInputKind = "inline" | "localFile";
 
-export type BusinessInput = {
+export type EngineeringInput = {
   readonly id: string;
-  readonly kind: BusinessInputKind;
+  readonly kind: EngineeringInputKind;
   readonly path?: string;
   readonly content?: string;
 };
 
-export type BusinessApproval = {
+export type EngineeringApproval = {
   readonly approved: boolean;
   readonly approver: string;
   readonly reason?: string;
 };
 
-export type BusinessFinding = {
+export type EngineeringFinding = {
   readonly id: string;
   readonly text: string;
   readonly provenance: ProvenanceChain;
   readonly uncertainty: UncertaintyInfo;
-  readonly approval: BusinessApproval;
+  readonly approval: EngineeringApproval;
 };
 
-export type BusinessReport = {
+export type EngineeringReport = {
   readonly id: string;
   readonly text: string;
   readonly findingIds: readonly string[];
 };
 
-export type BusinessEvaluationRecord = {
+export type EngineeringEvaluationRecord = {
   readonly dimensions: Record<
     | "correctness"
     | "completeness"
@@ -65,27 +65,27 @@ export type BusinessEvaluationRecord = {
   readonly method: "automated" | "human" | "hybrid";
 };
 
-export type BusinessTaskRequest = {
+export type EngineeringTaskRequest = {
   readonly objective: string;
-  readonly workflow: readonly BusinessWorkflowStep[];
-  readonly inputs: readonly BusinessInput[];
+  readonly workflow: readonly EngineeringWorkflowStep[];
+  readonly inputs: readonly EngineeringInput[];
 };
 
-export type BusinessTaskResult = {
-  readonly state: BusinessTaskStatus;
-  readonly report?: BusinessReport;
-  readonly findings: readonly BusinessFinding[];
+export type EngineeringTaskResult = {
+  readonly state: EngineeringTaskStatus;
+  readonly report?: EngineeringReport;
+  readonly findings: readonly EngineeringFinding[];
   readonly provenance: readonly ProvenanceChain[];
-  readonly evaluation: BusinessEvaluationRecord;
+  readonly evaluation: EngineeringEvaluationRecord;
 };
 
-export type BusinessDecisionProvider = {
+export type EngineeringDecisionProvider = {
   decideApproval(
-    businessObject: BusinessInput,
-    state: { status: BusinessTaskStatus },
-  ): Promise<BusinessApproval>;
+    businessObject: EngineeringInput,
+    state: { status: EngineeringTaskStatus },
+  ): Promise<EngineeringApproval>;
 };
 
-export type BusinessTaskState = {
-  readonly status: BusinessTaskStatus;
+export type EngineeringTaskState = {
+  readonly status: EngineeringTaskStatus;
 };

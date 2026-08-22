@@ -1,11 +1,11 @@
 /**
- * ISSU Phase 10 — Business Automation Agents: public data model.
+ * ISSU Phase 16 — Productivity Automation Agents: public data model.
  * Spec §6, §7, Architecture Q10.1.
  */
 
 import type { ProvenanceChain, UncertaintyInfo } from "@issue/analytics";
 
-export type BusinessTaskStatus =
+export type ProductivityTaskStatus =
   | "READY"
   | "VALIDATING"
   | "TRANSFORMING"
@@ -18,42 +18,42 @@ export type BusinessTaskStatus =
   | "FAILED"
   | "CANCELLED";
 
-export type BusinessWorkflowStep = {
+export type ProductivityWorkflowStep = {
   readonly op: "validate" | "transform" | "approve" | "notify" | "archive";
   readonly target: string;
   readonly params?: Readonly<Record<string, unknown>>;
 };
 
-export type BusinessInputKind = "inline" | "localFile";
+export type ProductivityInputKind = "inline" | "localFile";
 
-export type BusinessInput = {
+export type ProductivityInput = {
   readonly id: string;
-  readonly kind: BusinessInputKind;
+  readonly kind: ProductivityInputKind;
   readonly path?: string;
   readonly content?: string;
 };
 
-export type BusinessApproval = {
+export type ProductivityApproval = {
   readonly approved: boolean;
   readonly approver: string;
   readonly reason?: string;
 };
 
-export type BusinessFinding = {
+export type ProductivityFinding = {
   readonly id: string;
   readonly text: string;
   readonly provenance: ProvenanceChain;
   readonly uncertainty: UncertaintyInfo;
-  readonly approval: BusinessApproval;
+  readonly approval: ProductivityApproval;
 };
 
-export type BusinessReport = {
+export type ProductivityReport = {
   readonly id: string;
   readonly text: string;
   readonly findingIds: readonly string[];
 };
 
-export type BusinessEvaluationRecord = {
+export type ProductivityEvaluationRecord = {
   readonly dimensions: Record<
     | "correctness"
     | "completeness"
@@ -65,27 +65,27 @@ export type BusinessEvaluationRecord = {
   readonly method: "automated" | "human" | "hybrid";
 };
 
-export type BusinessTaskRequest = {
+export type ProductivityTaskRequest = {
   readonly objective: string;
-  readonly workflow: readonly BusinessWorkflowStep[];
-  readonly inputs: readonly BusinessInput[];
+  readonly workflow: readonly ProductivityWorkflowStep[];
+  readonly inputs: readonly ProductivityInput[];
 };
 
-export type BusinessTaskResult = {
-  readonly state: BusinessTaskStatus;
-  readonly report?: BusinessReport;
-  readonly findings: readonly BusinessFinding[];
+export type ProductivityTaskResult = {
+  readonly state: ProductivityTaskStatus;
+  readonly report?: ProductivityReport;
+  readonly findings: readonly ProductivityFinding[];
   readonly provenance: readonly ProvenanceChain[];
-  readonly evaluation: BusinessEvaluationRecord;
+  readonly evaluation: ProductivityEvaluationRecord;
 };
 
-export type BusinessDecisionProvider = {
+export type ProductivityDecisionProvider = {
   decideApproval(
-    businessObject: BusinessInput,
-    state: { status: BusinessTaskStatus },
-  ): Promise<BusinessApproval>;
+    businessObject: ProductivityInput,
+    state: { status: ProductivityTaskStatus },
+  ): Promise<ProductivityApproval>;
 };
 
-export type BusinessTaskState = {
-  readonly status: BusinessTaskStatus;
+export type ProductivityTaskState = {
+  readonly status: ProductivityTaskStatus;
 };

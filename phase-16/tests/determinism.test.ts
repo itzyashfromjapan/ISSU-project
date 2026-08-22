@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { runBusinessTask } from "../src/internal/machine.js";
+import { runProductivityTask } from "../src/internal/machine.js";
 import { createStubProvider } from "../src/internal/provider.js";
 
 describe("determinism (Spec §13)", () => {
@@ -10,8 +10,8 @@ describe("determinism (Spec §13)", () => {
       inputs: [{ id: "1", kind: "inline" as const, content: "x" }],
     };
     const provider = createStubProvider(true);
-    const a = await runBusinessTask(req, { provider });
-    const b = await runBusinessTask(req, { provider });
+    const a = await runProductivityTask(req, { provider });
+    const b = await runProductivityTask(req, { provider });
     expect(a.state).toBe(b.state);
     expect(a.findings.length).toBe(b.findings.length);
     expect(JSON.stringify(a.findings)).toBe(JSON.stringify(b.findings));

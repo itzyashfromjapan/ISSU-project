@@ -143,3 +143,12 @@ PUSH: HEAD → origin/main SUCCESS
 
 
 
+
+---
+
+## 16. POST-FREEZE CORRECTIVE REWORK (Owner-authorized 2026-08-22, audit items D1/D2)
+
+- **D1 conformance rework:** pre-rework, this phase's src/ was byte-identical to Phase 10 and exported runBusinessTask / BusinessTask*, which did NOT conform to this phase's accepted SPECIFICATION surface (runRoboticsTask / RoboticsTask*). Under Owner authorization D1 (2026-08-22) all public symbols, internal identifiers, the audit event (Robotics.audit), the provenance ref prefix (Robotics-{workflowId}-{N}), tests, and docs were corrected to the phase-specific API. Behavior remains the same deterministic lifecycle; no capability was invented beyond the SPEC.
+- **D2 coverage correction:** actual measured coverage is now 100% stmts / 90.9% branches / 100% funcs / 100% lines.
+- All gates re-run after rework: typecheck PASS, lint PASS, format:check PASS, tests PASS, coverage gate PASS, build PASS.
+- This appendix supersedes earlier numeric/conformance claims in sections 3-6 above where they conflict.

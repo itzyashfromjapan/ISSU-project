@@ -1,30 +1,32 @@
 /**
- * ISSU Phase 10 — BusinessDecisionProvider seam.
+ * ISSU Phase 16 — ProductivityDecisionProvider seam.
  * Spec §8, Architecture Q10.3.
  */
 
 import type {
-  BusinessDecisionProvider,
-  BusinessApproval,
-  BusinessInput,
-  BusinessTaskStatus,
+  ProductivityDecisionProvider,
+  ProductivityApproval,
+  ProductivityInput,
+  ProductivityTaskStatus,
 } from "./model.js";
 
-export const stubProvider: BusinessDecisionProvider = {
+export const stubProvider: ProductivityDecisionProvider = {
   async decideApproval(
-    _businessObject: BusinessInput,
-    _state: { status: BusinessTaskStatus },
-  ): Promise<BusinessApproval> {
+    _businessObject: ProductivityInput,
+    _state: { status: ProductivityTaskStatus },
+  ): Promise<ProductivityApproval> {
     return { approved: true, approver: "stub" };
   },
 };
 
-export function createStubProvider(approved = true): BusinessDecisionProvider {
+export function createStubProvider(
+  approved = true,
+): ProductivityDecisionProvider {
   return {
     async decideApproval(
-      _businessObject: BusinessInput,
-      _state: { status: BusinessTaskStatus },
-    ): Promise<BusinessApproval> {
+      _businessObject: ProductivityInput,
+      _state: { status: ProductivityTaskStatus },
+    ): Promise<ProductivityApproval> {
       return {
         approved,
         approver: "stub",

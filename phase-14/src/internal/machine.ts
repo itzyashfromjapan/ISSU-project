@@ -1,26 +1,26 @@
 /**
- * ISSU Phase 10 — Business Automation Agents: deterministic lifecycle machine.
+ * ISSU Phase 14 — Engineering Automation Agents: deterministic lifecycle machine.
  * Spec §8, Architecture Q10.2.
  */
 
 import type {
-  BusinessTaskRequest,
-  BusinessTaskResult,
-  BusinessTaskStatus,
+  EngineeringTaskRequest,
+  EngineeringTaskResult,
+  EngineeringTaskStatus,
 } from "./model.js";
-import type { BusinessDecisionProvider } from "./model.js";
+import type { EngineeringDecisionProvider } from "./model.js";
 import type { Logger } from "@issue/foundation";
 import { createLogger, redactionList } from "@issue/foundation";
 import { stubProvider } from "./provider.js";
 
-export async function runBusinessTask(
-  request: BusinessTaskRequest,
+export async function runEngineeringTask(
+  request: EngineeringTaskRequest,
   options?: {
     logger?: Logger;
-    provider?: BusinessDecisionProvider;
+    provider?: EngineeringDecisionProvider;
     signal?: AbortSignal;
   },
-): Promise<BusinessTaskResult> {
+): Promise<EngineeringTaskResult> {
   const logger =
     options?.logger ?? createLogger({ level: "info", redact: redactionList() });
   const provider = options?.provider ?? stubProvider;
@@ -87,7 +87,7 @@ export async function runBusinessTask(
     return false;
   });
   if (validInputs.length === 0) {
-    logger.info("business.audit", {
+    logger.info("Engineering.audit", {
       objective: request.objective,
       state: "ABSTAINED",
     });
@@ -114,11 +114,11 @@ export async function runBusinessTask(
     content: inp.content ?? `transformed-${inp.id}`,
   }));
 
-  // APPROVING: via BusinessDecisionProvider
+  // APPROVING: via EngineeringDecisionProvider
   const approvals = await Promise.all(
     transformed.map((inp) =>
       provider.decideApproval(inp, {
-        status: "APPROVING" as BusinessTaskStatus,
+        status: "APPROVING" as EngineeringTaskStatus,
       }),
     ),
   );
@@ -128,14 +128,14 @@ export async function runBusinessTask(
   // NOTIFYING & ARCHIVING: deterministically create findings
   const findings = transformed.map((inp, idx) => ({
     id: `finding-${idx}`,
-    text: `Business finding for ${inp.id}: ${request.objective}`,
+    text: `Engineering finding for ${inp.id}: ${request.objective}`,
     provenance: {
       id: `prov-${idx}`,
       sourceIds: [inp.id],
       steps: [
         {
-          kind: "business",
-          ref: `business-${request.workflow[0]?.target ?? "workflow"}-${idx}`,
+          kind: "engineering",
+          ref: `Engineering-${request.workflow[0]?.target ?? "workflow"}-${idx}`,
           description: `step ${request.workflow[0]?.op ?? "validate"}`,
         },
       ],
@@ -147,7 +147,7 @@ export async function runBusinessTask(
   const provenance = findings.map((f) => f.provenance);
   const report = {
     id: "report-0",
-    text: `Business report for ${request.objective}: ${findings.length} findings, approved=${allApproved}`,
+    text: `Engineering report for ${request.objective}: ${findings.length} findings, approved=${allApproved}`,
     findingIds: findings.map((f) => f.id),
   };
 
@@ -173,8 +173,8 @@ export async function runBusinessTask(
     };
   }
 
-  const state: BusinessTaskStatus = partial ? "PARTIAL" : "COMPLETED";
-  logger.info("business.audit", {
+  const state: EngineeringTaskStatus = partial ? "PARTIAL" : "COMPLETED";
+  logger.info("Engineering.audit", {
     objective: request.objective,
     state,
     findings: findings.length,
