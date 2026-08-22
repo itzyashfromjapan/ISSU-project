@@ -140,3 +140,11 @@ PHASE 8 WORK STARTED: NO
 COMMIT: HEAD (32 files)
 PUSH: HEAD → origin/main SUCCESS
 ```
+
+---
+## 17. POST-FREEZE CORRECTIVE REWORK (Owner-authorized 2026-08-22, audit item D7)
+
+- **D7 coverage-threshold correction:** SPECIFICATION section 19 requires thresholds of at least 80 percent on lines, statements, functions, and branches. The frozen vitest.config.ts had branches set to 70. Under Owner authorization D7 the threshold was raised to 80 and targeted deterministic suites were added so the gate passes without weakening anything: tests/git.mocked.test.ts (porcelain parsing incl. staged/unstaged/untracked/behind/unknown, branch tracking parse, --all and path-escape rejections, add/commit non-zero exits), tests/process.mocked.test.ts (mocked child_process: spawn error mapping to issue.process.not-contained, stream cap+truncate, null exit code, timeout kill), tests/fetch.stubbed.test.ts (AbortError to timeout, generic rejection to not-allowed, X-Auth-* blocked, Authorization forwarded only with allowAuth).
+- **Measured after correction:** 87.27% statements (247/283), 86.24% branches (163/189), 95.65% functions (22/23), 89.59% lines (241/269). All four dimensions meet or exceed the SPEC's 80 percent requirement.
+- All gates re-run after correction: typecheck PASS, lint PASS, format:check PASS, tests PASS (56/56), coverage gate PASS, build PASS.
+- No source behavior changed; no SPEC text amended; scope limited to Phase 07 per authorization.
